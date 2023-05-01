@@ -1,8 +1,8 @@
-### 简介
+# 简介
 
-用 C++ 语言写的非常简陋的六子棋 Checker，可用于人人对战，人机对战，机人对战，机机对战（
+用 C++ 语言写的非常简陋的六子棋 Checker，可指定玩家或者程序作为对战的双方。
 
-### 运行
+# 运行
 
 需要在安装了 C++11 的 macOS/Linux 系统下运行。
 
@@ -22,8 +22,8 @@ make
 - 先手时给出两个整数 x,y，表示第一颗黑子的坐标 (x, y)。
 - 否则需要给出四个整数 x0,y0,x1,y1，表示当前回合我方落子的两个位置 (x0, y0) 和 (x1, y1)。
 
-程序的交互规范可见 [BotZone](https://wiki.botzone.org.cn/index.php?title=ConnectSix)。
+程序的交互规范可见 [BotZone](https://wiki.botzone.org.cn/index.php?title=Bot#.E7.AE.80.E5.8C.96.E4.BA.A4.E4.BA.92)。
 
-### 其它
+# 其它
 
 这个仓库的真实用途其实是测试一下 Git 和 GNUMake……
