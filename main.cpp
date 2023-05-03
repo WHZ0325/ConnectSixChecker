@@ -167,7 +167,7 @@ inline void readFromFirstUser() {
 }
 
 void beforeExit() {
-	puts("Before Exit.");
+	// puts("Before Exit.");
 	for(int p = 0; p < 2; ++p) if(!type[p]) {
 		FILE *sh = fopen(".run.sh", "w");
 		fprintf(sh, "if [ \"$(ps -ef | grep ./%s | wc -l)\" != \"1\" ]\n", player[p]);
