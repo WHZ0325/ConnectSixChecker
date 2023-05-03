@@ -74,6 +74,16 @@ inline int check() {
 				}
 				if(same) return color;
 			}
+			if(i + 5 < 15 && j - 5 >= 0) {
+				int color = map[i][j]; bool same = true;
+				for(int k = 1; k <= 5; ++k) {
+					if(map[i + k][j - k] ^ color) {
+						same = false;
+						break;
+					}
+				}
+				if(same) return color;
+			}
 		}
 	}
 	return (cnt ^ 225) ? -1 : 0;
@@ -103,7 +113,7 @@ inline void writeToPlayer(int p) {
 	fputs("fi\n", sh);
 	fclose(sh);
 	system("chmod u+x ./.run.sh");
-	system("./.run.sh");
+	system("./.run.sh > /dev/null 2>&1");
 }
 inline bool readFromPlayer(int p) {
 	writeToPlayer(p);
@@ -156,7 +166,22 @@ inline void readFromFirstUser() {
 	place(x, y, 0); data.emplace_back(std::make_tuple(x, y, -1, -1));
 }
 
+void beforeExit() {
+	puts("Before Exit.");
+	for(int p = 0; p < 2; ++p) if(!type[p]) {
+		FILE *sh = fopen(".run.sh", "w");
+		fprintf(sh, "if [ \"$(ps -ef | grep ./%s | wc -l)\" != \"1\" ]\n", player[p]);
+		fputs("then\n", sh);
+		fprintf(sh, "\tpkill -9 %s\n", player[p]);
+		fputs("fi\n", sh);
+		fclose(sh);
+		system("chmod u+x ./.run.sh");
+		system("./.run.sh > /dev/null 2>&1");
+	}
+}
+
 int main(int argc, char* argv[]) {
+	atexit(beforeExit);
 	if(argc == 3) {
 		for(int i = 0; i < 2; ++i) {
 			player[i] = argv[i + 1];
@@ -199,6 +224,6 @@ int main(int argc, char* argv[]) {
 		puts("The game has drawn.");
 		return 0;
 	}
-	printf("The winner is %s %d\n", type[res - 1] ? "User" : "Player", res);
+	printf("The winner is %s %d.\n", type[res - 1] ? "User" : "Player", res);
 	return res;
 }
