@@ -96,17 +96,20 @@ inline bool outOfRange(int x, int y) {
 int rnd = 0; bool type[2]; char *player[2];
 inline void writeToPlayer(int p) {
 	FILE *fp = fopen(".tmp.txt", "w");
-	fprintf(fp, "%d\n", rnd);
+	puts("Write to program: ");
+	fprintf(fp, "%d\n", (rnd + 1) >> 1);
+	printf("%d\n", (rnd + 1) >> 1);
 	for(int i = 0, end = data.size(); i < end; ++i) {
 		if(!i && p) continue;
 		auto &d = data[i];
 		fprintf(fp, "%d %d %d %d\n", std::get<0>(d), std::get<1>(d), std::get<2>(d), std::get<3>(d));
+		printf("%d %d %d %d\n", std::get<0>(d), std::get<1>(d), std::get<2>(d), std::get<3>(d));
 	}
 	fclose(fp);
 
 	FILE *sh = fopen(".run.sh", "w");
 	fprintf(sh, "./%s < .tmp.txt > .out.txt &\n", player[p]);
-	fputs("sleep 1\n", sh);
+	fputs("sleep 2\n", sh);
 	fprintf(sh, "if [ \"$(ps -ef | grep ./%s | wc -l)\" != \"1\" ]\n", player[p]);
 	fputs("then\n", sh);
 	fprintf(sh, "\tpkill -9 %s\n", player[p]);

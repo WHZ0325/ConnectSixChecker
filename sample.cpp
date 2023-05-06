@@ -128,6 +128,5 @@ int main()
 
 	cout << startX << ' ' << startY << ' ' << resultX<< ' '<< resultY<< endl;
 
-	// while(1);
 	return 0;
 }
